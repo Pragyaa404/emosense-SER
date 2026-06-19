@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+venv/
+env/
+
+# Model files (large — handled separately, see README)
+*.h5
+*.npy
+
+# Data collected from users (privacy — don't commit real user audio)
+data/new_audio/*
+!data/new_audio/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

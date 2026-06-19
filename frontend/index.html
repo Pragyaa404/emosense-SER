@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmoSense — Speech Emotion Recognition</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">EmoSense</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> AI-Powered · Real-time Analysis</div>
+      <h1 class="hero-title">
+        Hear the<br>
+        <span class="grad">emotion</span> behind<br>
+        every <span class="grad2">voice</span>
+      </h1>
+      <p class="hero-sub">EmoSense uses a deep learning ensemble — CNN-CBAM, BiLSTM, and Transformer models — to classify speech into 4 emotions.</p>
+      <div class="hero-btns">
+        <a href="#demo" class="btn-primary">Try the Demo</a>
+        <a href="#architecture" class="btn-outline">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num grad-text-1">91%+</div>
+          <div class="stat-label">Ensemble Accuracy</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num grad-text-2">6,001+</div>
+          <div class="stat-label">Training Samples</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num grad-text-3">5</div>
+          <div class="stat-label">Deep Learning Models</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num grad-text-4">4</div>
+          <div class="stat-label">Emotion Classes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-tag tag-pink">About the Project</div>
+        <h2>What is Speech<br>Emotion Recognition?</h2>
+        <p>Speech Emotion Recognition (SER) is the task of automatically identifying human emotional states from audio signals. EmoSense combines multiple deep learning architectures trained on a merged, balanced dataset.</p>
+        <p>The system processes raw audio through two parallel feature extraction pipelines — Mel spectrograms and MFCCs — feeding into an ensemble of 5 specialized models whose predictions are combined via weighted soft voting.</p>
+        <ul class="feature-list">
+          <li><span class="feat-dot dot-2">✓</span> Balanced dataset merged from two real-world sources</li>
+          <li><span class="feat-dot dot-4">✓</span> Dual feature pipeline — Mel spectrograms + MFCC</li>
+          <li><span class="feat-dot dot-5">✓</span> CBAM attention — channel + spatial attention</li>
+          <li><span class="feat-dot dot-3">✓</span> 5-fold cross-validation for robust evaluation</li>
+          <li><span class="feat-dot dot-1">✓</span> Continuous learning from real user feedback</li>
+        </ul>
+      </div>
+      <div class="about-visual">
+        <p class="visual-label">Detected Emotions</p>
+        <div class="emotion-grid">
+          <div class="emo-card emo-happy">
+            <h4>Happy</h4>
+            <p>Joyful, excited speech patterns</p>
+            <div class="emo-bar bar-happy"></div>
+          </div>
+          <div class="emo-card emo-sad">
+            <h4>Sad</h4>
+            <p>Low energy, slow cadence</p>
+            <div class="emo-bar bar-sad"></div>
+          </div>
+          <div class="emo-card emo-angry">
+            <h4>Angry</h4>
+            <p>High intensity, sharp peaks</p>
+            <div class="emo-bar bar-angry"></div>
+          </div>
+          <div class="emo-card emo-neutral">
+            <h4>Neutral</h4>
+            <p>Balanced, flat intonation</p>
+            <div class="emo-bar bar-neutral"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="container">
+    <div class="demo-heading">
+      <div class="section-tag tag-blue">Live Demo</div>
+      <h2>Try It Yourself</h2>
+      <p>Upload an audio file or record live to see real emotion detection from the deployed model</p>
+    </div>
+    <div class="demo-wrapper">
+
+      <div class="demo-tabs">
+        <button class="demo-tab active" onclick="switchTab('upload',this)">Upload</button>
+        <button class="demo-tab" onclick="switchTab('record',this)">Record</button>
+      </div>
+
+      <div id="panel-upload" class="demo-panel active">
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" accept="audio/*" id="fileInput" onchange="handleFile(this)">
+          <div class="upload-icon">🎵</div>
+          <h3>Drop your audio file here</h3>
+          <p>Supports WAV, MP3, M4A, FLAC</p>
+        </div>
+        <div id="uploadStatus" class="status-box"></div>
+      </div>
+
+      <div id="panel-record" class="demo-panel">
+        <div class="record-section">
+          <button class="record-btn" id="recordBtn" onclick="toggleRecord()">🎙️</button>
+          <p class="record-label" id="recordLabel">Click to start recording</p>
+          <audio id="audioPlayback" controls style="display:none;width:100%;margin-top:1rem"></audio>
+          <p id="recTimer" class="rec-timer"></p>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" onclick="analyze()" disabled>Analyze Emotion →</button>
+
+      <div id="errorBox" class="error-box"></div>
+
+      <div class="result-box" id="resultBox">
+        <p class="result-label">Detected Emotion</p>
+        <div class="result-emotion" id="resultEmotion"></div>
+        <p class="conf-label">Confidence scores</p>
+        <div class="conf-bars" id="confBars"></div>
+
+        <div class="feedback-section">
+          <p class="feedback-prompt">Was this prediction correct?</p>
+          <div class="feedback-btns" id="feedbackBtns"></div>
+          <p id="feedbackStatus" class="feedback-status"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="container">
+    <div class="section-tag tag-purple">Model Architecture</div>
+    <h2 class="arch-title">How EmoSense Works</h2>
+    <p class="arch-subtitle">Two parallel feature pipelines feed into a 5-model ensemble for maximum accuracy</p>
+
+    <div class="pipeline-grid">
+      <div class="pipe-card pipe-yellow">
+        <div class="pipe-header">
+          <div class="pipe-icon icon-yellow">🎛️</div>
+          <div><div class="pipe-title color-yellow">Pipeline A — Mel</div><div class="pipe-sub">Feeds CNN-CBAM ensemble</div></div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><span class="step-num step-yellow">1</span> Raw WAV audio (16kHz)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-yellow">2</span> Mel Spectrogram (128×128)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-yellow">3</span> Trim silence + normalise</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-yellow">4</span> CNN + CBAM Attention ×3</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-yellow">5</span> Soft-vote ensemble</div>
+        </div>
+      </div>
+
+      <div class="pipe-card pipe-blue">
+        <div class="pipe-header">
+          <div class="pipe-icon icon-blue">🌊</div>
+          <div><div class="pipe-title color-blue">Pipeline B — MFCC</div><div class="pipe-sub">Feeds BiLSTM + EmoFormer</div></div>
+        </div>
+        <div class="flow-steps">
+          <div class="flow-step"><span class="step-num step-blue">1</span> Raw WAV audio (16kHz)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-blue">2</span> MFCC Features (128×40)</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-blue">3</span> Pad / truncate to 128 frames</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-blue">4</span> CNN → BiLSTM + Attention<br>CNN → Transformer Encoder</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step"><span class="step-num step-blue">5</span> Average predictions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ensemble-box">
+      <div class="ensemble-title">Weighted Soft Voting Ensemble</div>
+      <p class="ensemble-desc">Final prediction = average of all 5 models' probability outputs</p>
+      <div class="model-chips">
+        <span class="model-chip chip-a">CNN-CBAM #1</span>
+        <span class="model-chip chip-a">CNN-CBAM #2</span>
+        <span class="model-chip chip-a">CNN-CBAM #3</span>
+        <span class="model-chip chip-b">BiLSTM+Attn</span>
+        <span class="model-chip chip-c">EmoFormer</span>
+      </div>
+    </div>
+
+    <div class="learning-box">
+      <div class="ensemble-title color-green">Continuous Learning</div>
+      <p class="ensemble-desc">Every prediction's audio is saved. When you confirm or correct a result, that label is stored for periodic retraining — improving the model over time using real user data.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="section-tag tag-yellow">Contact</div>
+      <h2>Get in Touch</h2>
+      <p>Interested in the project, want to collaborate, or have questions? Reach out below.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:pragyasethia0@gmail.com">pragyasethia0@gmail.com</a>
+        <a class="contact-link" href="https://linkedin.com/in/pragya-sethia-98181b296" target="_blank">linkedin.com/in/pragya-sethia-98181b296</a>
+        <a class="contact-link" href="https://github.com/PragyaSethia0" target="_blank">github.com/PragyaSethia0</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <span>Pragya</span> · EmoSense Speech Emotion Recognition</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "emotions": [
+    "anger",
+    "happy",
+    "neutral",
+    "sadness"
+  ],
+  "sample_rate": 16000,
+  "n_mels": 128,
+  "max_len": 128,
+  "n_mfcc": 40,
+  "max_len_mfcc": 128,
+  "hop_length": 512
+}
