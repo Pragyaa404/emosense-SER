@@ -1,7 +1,7 @@
 // ── CONFIG ───────────────────────────────────────────────────────────────────
 // IMPORTANT: Replace this with your actual HuggingFace Space URL once deployed
 // Example: "https://your-username-emosense.hf.space"
-const API_BASE_URL = "https://YOUR-USERNAME-emosense.hf.space";
+const API_BASE_URL = "https://pragyaa404-emosense-ser.hf.space";
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let selectedFile = null;       // File object from upload or recording
